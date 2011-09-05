@@ -10,9 +10,15 @@ __END__
 
 @@ index
 %html
-  %title pow index
-  %ul
-    - @pows.each do |pow|
-      %li
-        %a{:href => 'http://' + pow + '.dev'} 
-          = pow
+  %head
+    %title pow index
+    %link{:rel => 'stylesheet', :href => 'http://twitter.github.com/bootstrap/assets/css/bootstrap-1.2.0.min.css'}
+  %body
+    %h1 index
+    %table.zebra-striped
+      %tbody
+        - @pows.each do |pow|
+          %tr
+            %td
+              %a{:href => 'http://' + pow + '.dev'} 
+                = pow
