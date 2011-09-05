@@ -8,14 +8,11 @@ end
 
 __END__
 
-@@ layout
+@@ index
 %html
   %title pow index
-  = yield
-
-@@ index
-%ul
-  - @pows.each do |pow|
-    %li
-      %a{:href => 'http://' + pow + '.dev'} 
-        = pow
+  %ul
+    - @pows.each do |pow|
+      %li
+        %a{:href => 'http://' + pow + '.dev'} 
+          = pow
