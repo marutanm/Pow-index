@@ -1,6 +1,5 @@
-require 'bundler'
+require './lib/pow-index'
 
-Bundler.require
-
-require './app'
-run Sinatra::Application
+map '/' do
+  run PowIndex::App
+end

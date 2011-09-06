@@ -1,9 +1,18 @@
-POW_PATH = "#{ENV['HOME']}/.pow"
-enable :inline_templates
+require 'sinatra/base'
 
-get '/' do
-  @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
-  haml :index
+module PowIndex
+
+    class App < Sinatra::Base
+
+      POW_PATH = "#{ENV['HOME']}/.pow"
+      enable :inline_templates
+
+      get '/' do
+        @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
+        haml :index
+      end
+    end
+
 end
 
 __END__
