@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+
+linkname = ARGV[0] || 'index'
+binpath = File.expand_path(File.dirname(__FILE__)).chomp
+powpath = ENV['HOME'] + '/.pow'
+FileUtils.ln_s(binpath + '/../', powpath + '/' + linkname)

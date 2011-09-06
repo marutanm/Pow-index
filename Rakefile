@@ -21,6 +21,9 @@ Jeweler::Tasks.new do |gem|
   gem.description = "Create index page of 37signals-Pow"
   gem.email = "marutanm@gmail.com"
   gem.authors = ["marutanm"]
-  # dependencies defined in Gemfile
+  gem.files = FileList['lib/**/*.rb', 'bin/*', 'config.ru'].to_a
+  gem.executables = 'pow-index'
+  gem.add_dependency('sinatra', '>= 1.2.0')
+  gem.add_dependency('haml', '>= 3.1.0')
 end
 Jeweler::RubygemsDotOrgTasks.new
