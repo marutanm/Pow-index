@@ -14,11 +14,12 @@ __END__
     %title pow index
     %link{:rel => 'stylesheet', :href => 'http://twitter.github.com/bootstrap/assets/css/bootstrap-1.2.0.min.css'}
   %body
-    %h1 index
-    %table.zebra-striped
-      %tbody
-        - @pows.each do |pow|
-          %tr
-            %td
-              %a{:href => 'http://' + pow + '.dev'} 
-                = pow
+    .container
+      %h1 index
+      %table.zebra-striped
+        %tbody
+          - @pows.each do |pow|
+            %tr
+              %td
+                %a{:href => 'http://' + pow + '.dev'} 
+                  = pow
