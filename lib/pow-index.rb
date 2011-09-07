@@ -11,6 +11,13 @@ module PowIndex
         @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
         haml :index
       end
+
+      get '/cleanup' do
+        require 'fileutils'
+        Dir[POW_PATH + "/*"].map { |symlink| FileUtils.rm(symlink) unless File.exists? File.readlink(symlink) }
+        redirect '/'
+      end
+
     end
 
 end
@@ -32,3 +39,4 @@ __END__
               %td
                 %a{:href => 'http://' + pow + '.dev'} 
                   = pow
+      %button.btn.small{'onClick' => "location.href='./cleanup'"} Clenup
