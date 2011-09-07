@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pow-index}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{marutanm}]
@@ -13,6 +13,9 @@ Gem::Specification.new do |s|
   s.description = %q{Create index page of 37signals-Pow}
   s.email = %q{marutanm@gmail.com}
   s.executables = [%q{pow-index}]
+  s.extra_rdoc_files = [
+    "README.md"
+  ]
   s.files = [
     "bin/pow-index",
     "config.ru",
