@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 require 'fileutils'
 
+binpath = "#{File.expand_path(File.dirname(__FILE__)).chomp}/../"
 linkname = ARGV[0] || 'index'
-binpath = File.expand_path(File.dirname(__FILE__)).chomp
-powpath = ENV['HOME'] + '/.pow'
-FileUtils.ln_s(binpath + '/../', powpath + '/' + linkname)
+powpath = "#{ENV['HOME']}/.pow/#{linkname}"
+FileUtils.ln_s(binpath, powpath) unless File.exists?(powpath)
+puts "Created #{powpath}"
