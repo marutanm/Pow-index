@@ -27,3 +27,13 @@ Jeweler::Tasks.new do |gem|
   gem.add_dependency('haml', '>= 3.1.0')
 end
 Jeweler::RubygemsDotOrgTasks.new
+
+task :default => :test
+
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
+end
+
