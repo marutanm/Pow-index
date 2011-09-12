@@ -36,31 +36,7 @@ __END__
     %title pow index
     %link{:rel => 'stylesheet', :href => 'http://twitter.github.com/bootstrap/assets/css/bootstrap-1.2.0.min.css'}
     %script{:type => 'text/javascript', :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js'}
-    :javascript
-      function loadtable(){
-        $('#linktable').load('/linktable')
-      }
-      function toggle(){
-        $.each(['toggle', 'confirm'], function() {
-          if(document.getElementById(this).style.display == 'none'){
-            document.getElementById(this).style.display = 'block';
-          }else{
-            document.getElementById(this).style.display = 'none';
-          }
-        })
-      }
-      function cleanup() {
-        $.ajax({
-          type: "GET",
-          url: "/cleanup",
-          dataType: "html",
-          success: function(){
-            loadtable();
-            toggle();
-          }
-        })
-      }
-      $(function(){ loadtable(); })
+    = haml :js
   %body
     .container
       %h1 pow index
@@ -79,3 +55,30 @@ __END__
       %td
         %a{:href => "http://#{pow}.dev" :target => "_blank"}
           = pow
+
+@@ js
+:javascript
+  function loadtable(){
+    $('#linktable').load('/linktable')
+  }
+  function toggle(){
+    $.each(['toggle', 'confirm'], function() {
+      if(document.getElementById(this).style.display == 'none'){
+        document.getElementById(this).style.display = 'block';
+      }else{
+        document.getElementById(this).style.display = 'none';
+      }
+    })
+  }
+  function cleanup() {
+    $.ajax({
+      type: "GET",
+      url: "/cleanup",
+      dataType: "html",
+      success: function(){
+        loadtable();
+        toggle();
+      }
+    })
+  }
+  $(function(){ loadtable(); })
