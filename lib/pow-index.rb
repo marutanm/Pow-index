@@ -68,7 +68,7 @@ __END__
       .row
         %button.btn.small#toggle{:onClick => 'toggle()'} Cleanup
         .alert-message.block-message.warning#confirm{'style' => 'display: none'}
-          %button.btn.small{:onClick => 'cleanup()'} Clenup
+          %button.btn.small{:onClick => 'cleanup()'} Cleanup
           %button.btn.small{:onClick => 'toggle()'} Cancel
           %p= "Pushing 'Cleanup' removes invalid symbolic link in ~/.pow"
 
@@ -77,5 +77,5 @@ __END__
   - @pows.each do |pow|
     %tr
       %td
-        %a{:href => "http://#{pow}.dev" }
+        %a{:href => "http://#{pow}.dev" :target => "_blank"}
           = pow
