@@ -1,4 +1,4 @@
-require 'sinatra/base'
+require "pow-index/version"
 
 module PowIndex
 
