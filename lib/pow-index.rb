@@ -1,30 +1,31 @@
 require "pow-index/version"
+require 'sinatra/base'
 
 module PowIndex
 
-    class App < Sinatra::Base
+  class App < Sinatra::Base
 
-      POW_PATH = "#{ENV['HOME']}/.pow"
-      enable :inline_templates
+    POW_PATH = "#{ENV['HOME']}/.pow"
+    enable :inline_templates
 
-      get '/' do
-        @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
-        haml :index
-      end
-
-      get '/cleanup' do
-        require 'fileutils'
-        Dir[POW_PATH + "/*"].map { |symlink| FileUtils.rm(symlink) unless File.exists? File.readlink(symlink) }
-        @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
-        haml :linktable
-      end
-
-      get '/linktable' do
-        @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
-        haml :linktable
-      end
-
+    get '/' do
+      @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
+      haml :index
     end
+
+    get '/cleanup' do
+      require 'fileutils'
+      Dir[POW_PATH + "/*"].map { |symlink| FileUtils.rm(symlink) unless File.exists? File.readlink(symlink) }
+      @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
+      haml :linktable
+    end
+
+    get '/linktable' do
+      @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
+      haml :linktable
+    end
+
+  end
 
 end
 

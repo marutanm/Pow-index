@@ -8,10 +8,8 @@ class TestHoge < Test::Unit::TestCase
     PowIndex::App
   end
 
-  context '#to_i' do
-    should "access to /" do
-      get '/'
-      assert last_response.ok?
-    end
+  should "access to /" do
+    get '/'
+    assert last_response.ok?
   end
 end

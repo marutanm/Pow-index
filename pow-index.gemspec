@@ -21,5 +21,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("sinatra", [">= 1.2.0"])
   s.add_runtime_dependency("haml", [">= 3.1.0"])
   s.add_development_dependency("shoulda", [">= 0"])
+  s.add_development_dependency("rack-test", ["~> 0.6.1"])
+  s.add_development_dependency("rake", ["0.9.2"])
 
 end
