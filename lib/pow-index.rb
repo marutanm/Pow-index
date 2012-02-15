@@ -25,6 +25,10 @@ module PowIndex
       haml :linktable
     end
 
+    get '/assets/:filename' do
+      File.readlines("#{File.dirname(__FILE__)}/../assets/#{params[:filename]}")
+    end
+
   end
 
 end
@@ -35,8 +39,8 @@ __END__
 %html
   %head
     %title pow index
-    %link{:rel => 'stylesheet', :href => 'http://twitter.github.com/bootstrap/assets/css/bootstrap-1.2.0.min.css'}
-    %script{:type => 'text/javascript', :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js'}
+    %link{:rel => 'stylesheet', :href => '/assets/bootstrap-1.2.0.min.css'}
+    %script{:type => 'text/javascript', :src => 'assets/jquery.min.js'}
     = haml :js
   %body
     .container
@@ -54,7 +58,7 @@ __END__
   - @pows.each do |pow|
     %tr
       %td
-        %a{:href => "http://#{pow}.dev" :target => "_blank"}
+        %a{:href => "http://#{pow}.dev", :target => "_blank"}
           = pow
 
 @@ js
