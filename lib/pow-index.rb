@@ -9,7 +9,7 @@ module PowIndex
     enable :inline_templates
 
     get '/' do
-      @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
+      @pows = (Dir[POW_PATH + "/*"] - [ "#{ENV['HOME']}/.pow/#{request.host.gsub(/.dev$/, '')}" ]).map { |link| File.basename(link) }
       haml :index
     end
 
@@ -21,14 +21,9 @@ module PowIndex
     end
 
     get '/linktable' do
-      @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
+      @pows = (Dir[POW_PATH + "/*"] - [ "#{ENV['HOME']}/.pow/#{request.host.gsub(/.dev$/, '')}" ]).map { |link| File.basename(link) }
       haml :linktable
     end
-
-    get '/assets/:filename' do
-      File.readlines("#{File.dirname(__FILE__)}/../assets/#{params[:filename]}")
-    end
-
   end
 
 end
@@ -39,8 +34,8 @@ __END__
 %html
   %head
     %title pow index
-    %link{:rel => 'stylesheet', :href => '/assets/bootstrap-1.2.0.min.css'}
-    %script{:type => 'text/javascript', :src => 'assets/jquery.min.js'}
+    %link{:rel => 'stylesheet', :href => '/bootstrap-1.2.0.min.css'}
+    %script{:type => 'text/javascript', :src => '/jquery.min.js'}
     = haml :js
   %body
     .container
