@@ -34,9 +34,9 @@ __END__
 %html
   %head
     %title pow index
-    %link{:rel => 'stylesheet', :href => '/assets/bootstrap.min.css'}
-    %link{:rel => 'stylesheet', :href => '/assets/bootstrap-responsive.min.css'}
-    %script{:type => 'text/javascript', :src => 'assets/jquery.min.js'}
+    %link{:rel => 'stylesheet', :href => 'bootstrap.min.css'}
+    %link{:rel => 'stylesheet', :href => 'bootstrap-responsive.min.css'}
+    %script{:type => 'text/javascript', :src => 'jquery.min.js'}
     = haml :js
   %body
     .container
