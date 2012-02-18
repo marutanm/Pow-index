@@ -34,13 +34,14 @@ __END__
 %html
   %head
     %title pow index
-    %link{:rel => 'stylesheet', :href => '/bootstrap-1.2.0.min.css'}
-    %script{:type => 'text/javascript', :src => '/jquery.min.js'}
+    %link{:rel => 'stylesheet', :href => '/assets/bootstrap.min.css'}
+    %link{:rel => 'stylesheet', :href => '/assets/bootstrap-responsive.min.css'}
+    %script{:type => 'text/javascript', :src => 'assets/jquery.min.js'}
     = haml :js
   %body
     .container
       %h1 pow index
-      %table.zebra-striped#linktable
+      %table.table-striped#linktable
       .row
         %button.btn.small#toggle{:onClick => 'toggle()'} Cleanup
         .alert-message.block-message.warning#confirm{'style' => 'display: none'}
