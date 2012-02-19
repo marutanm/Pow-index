@@ -57,7 +57,7 @@ __END__
           %p= "Remove invalid symbolic links in ~/.pow"
         .modal-footer
           %a.btn.btn-primary OK
-          %a.btn cancel
+          %a.btn{:'data-dismiss' => 'modal'} cancel
 
 @@ linktable
 %tbody
