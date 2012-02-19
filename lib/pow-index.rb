@@ -37,6 +37,7 @@ __END__
     %link{:rel => 'stylesheet', :href => 'bootstrap.min.css'}
     %link{:rel => 'stylesheet', :href => 'bootstrap-responsive.min.css'}
     %script{:type => 'text/javascript', :src => 'jquery.min.js'}
+    %script{:type => 'text/javascript', :src => 'bootstrap-modal.js'}
     = haml :js
   %body{:style => 'padding-top:40px'}
     .navbar.navbar-fixed-top
@@ -44,15 +45,17 @@ __END__
         .container
           .brand pow index
           .nav.pull-right
-            %button.btn#toggle{:onClick => 'toggle()'}
+            %a.btn{:'data-toggle' => "modal", :href => '#toggle'}
               %i.icon-refresh
     .container
-      .alert-message.block-message.warning#confirm{'style' => 'display: none'}
-        %button.btn.small{:onClick => 'cleanup()'} Cleanup
-        %button.btn.small{:onClick => 'toggle()'} Cancel
-        %p= "Pushing 'Cleanup' removes invalid symbolic link in ~/.pow"
       %table.table.table-striped#linktable
-      .row
+
+      .modal.hide#toggle
+        .modal-header
+          %h3 Cleanup
+        .modal-body
+          %p= "Pushing 'Cleanup' removes invalid symbolic link in ~/.pow"
+        .modal-footer
 
 @@ linktable
 %tbody
@@ -66,15 +69,6 @@ __END__
 :javascript
   function loadtable(){
     $('#linktable').load('/linktable')
-  }
-  function toggle(){
-    $.each(['toggle', 'confirm'], function() {
-      if(document.getElementById(this).style.display == 'none'){
-        document.getElementById(this).style.display = 'block';
-      }else{
-        document.getElementById(this).style.display = 'none';
-      }
-    })
   }
   function cleanup() {
     $.ajax({
