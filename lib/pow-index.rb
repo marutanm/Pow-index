@@ -41,7 +41,7 @@ __END__
   %body
     .container
       %h1 pow index
-      %table.table-striped#linktable
+      %table.table.table-striped#linktable
       .row
         %button.btn.small#toggle{:onClick => 'toggle()'} Cleanup
         .alert-message.block-message.warning#confirm{'style' => 'display: none'}
