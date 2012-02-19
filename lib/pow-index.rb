@@ -38,9 +38,12 @@ __END__
     %link{:rel => 'stylesheet', :href => 'bootstrap-responsive.min.css'}
     %script{:type => 'text/javascript', :src => 'jquery.min.js'}
     = haml :js
-  %body
+  %body{:style => 'padding-top:40px'}
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          .brand pow index
     .container
-      %h1 pow index
       %table.table.table-striped#linktable
       .row
         %button.btn.small#toggle{:onClick => 'toggle()'} Cleanup
