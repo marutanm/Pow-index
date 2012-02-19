@@ -54,8 +54,10 @@ __END__
         .modal-header
           %h3 Cleanup
         .modal-body
-          %p= "Pushing 'Cleanup' removes invalid symbolic link in ~/.pow"
+          %p= "Remove invalid symbolic links in ~/.pow"
         .modal-footer
+          %a.btn.btn-primary OK
+          %a.btn cancel
 
 @@ linktable
 %tbody
