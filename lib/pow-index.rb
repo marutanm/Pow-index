@@ -43,14 +43,15 @@ __END__
       .navbar-inner
         .container
           .brand pow index
+          .nav.pull-right
+            %button.btn#toggle{:onClick => 'toggle()'} Cleanup
     .container
+      .alert-message.block-message.warning#confirm{'style' => 'display: none'}
+        %button.btn.small{:onClick => 'cleanup()'} Cleanup
+        %button.btn.small{:onClick => 'toggle()'} Cancel
+        %p= "Pushing 'Cleanup' removes invalid symbolic link in ~/.pow"
       %table.table.table-striped#linktable
       .row
-        %button.btn.small#toggle{:onClick => 'toggle()'} Cleanup
-        .alert-message.block-message.warning#confirm{'style' => 'display: none'}
-          %button.btn.small{:onClick => 'cleanup()'} Cleanup
-          %button.btn.small{:onClick => 'toggle()'} Cancel
-          %p= "Pushing 'Cleanup' removes invalid symbolic link in ~/.pow"
 
 @@ linktable
 %tbody
