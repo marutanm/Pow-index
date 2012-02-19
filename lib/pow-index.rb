@@ -44,7 +44,8 @@ __END__
         .container
           .brand pow index
           .nav.pull-right
-            %button.btn#toggle{:onClick => 'toggle()'} Cleanup
+            %button.btn#toggle{:onClick => 'toggle()'}
+              %i.icon-refresh
     .container
       .alert-message.block-message.warning#confirm{'style' => 'display: none'}
         %button.btn.small{:onClick => 'cleanup()'} Cleanup
