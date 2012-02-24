@@ -56,7 +56,7 @@ __END__
         .modal-body
           %p= "Remove invalid symbolic links in ~/.pow"
         .modal-footer
-          %a.btn.btn-primary OK
+          %a.btn.btn-primary{:onClick => 'cleanup()'} OK
           %a.btn{:'data-dismiss' => 'modal'} cancel
 
 @@ linktable
@@ -79,7 +79,7 @@ __END__
       dataType: "html",
       success: function(){
         loadtable();
-        toggle();
+        $('#toggle').modal('hide')
       }
     })
   }
