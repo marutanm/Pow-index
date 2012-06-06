@@ -6,3 +6,13 @@ linkname = ARGV[0] || 'index'
 powpath = "#{ENV['HOME']}/.pow/#{linkname}"
 FileUtils.ln_s(binpath, powpath) unless File.exists?(powpath)
 puts "Created #{powpath}"
+
+## First snapshots generation
+POW_PATH = "#{ENV['HOME']}/.pow"
+@snaps = Dir[POW_PATH + "/*"].map { |symlink|
+  link = symlink.rpartition("/").last
+  unless link.eql?("default")
+    system "webkit2png -D #{binpath}public/snaps/ -o #{link} -C http://#{link}.dev"
+    puts "#{link.capitalize} snapshot generated"
+  end
+}
