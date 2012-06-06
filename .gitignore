@@ -1,4 +1,4 @@
 tmp
 .bundle
 pkg
-public/snaps/
+public/snaps/*.png
