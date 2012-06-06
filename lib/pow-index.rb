@@ -34,8 +34,8 @@ __END__
 %html
   %head
     %title pow index
-    %link{:rel => 'stylesheet', :href => 'bootstrap.min.css'}
-    %link{:rel => 'stylesheet', :href => 'bootstrap-responsive.min.css'}
+    %link{:rel => 'stylesheet', :href => 'styles.css'}
+
     %script{:type => 'text/javascript', :src => 'jquery.min.js'}
     %script{:type => 'text/javascript', :src => 'bootstrap-modal.js'}
     = haml :js
