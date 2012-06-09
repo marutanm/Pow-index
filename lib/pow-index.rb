@@ -9,19 +9,25 @@ module PowIndex
     enable :inline_templates
 
     get '/' do
-      @pows = (Dir[POW_PATH + "/*"] - [ "#{ENV['HOME']}/.pow/#{request.host.gsub(/.dev$/, '')}" ]).map { |link| File.basename(link) }
+      @pows = (Dir[POW_PATH + "/*"] - [ "#{ENV['HOME']}/.pow/#{request.host.gsub(/.dev$/, '')}" ]).map { |link| File.basename(link)}
       haml :index
     end
 
     get '/cleanup' do
       require 'fileutils'
       Dir[POW_PATH + "/*"].map { |symlink| FileUtils.rm(symlink) unless File.exists? File.readlink(symlink) }
-      @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link) }
+      @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link)}
+      ## Snapshots generation
+      path = "#{File.expand_path(File.dirname(__FILE__)).chomp}/../public/snaps/"
+      @snaps = Dir[POW_PATH + "/*"].map { |symlink|
+        link = symlink.rpartition("/").last
+        system "webkit2png -D #{path} -o #{link} -C http://#{link}.dev" unless link.eql?("default")
+      }
       haml :linktable
     end
 
     get '/linktable' do
-      @pows = (Dir[POW_PATH + "/*"] - [ "#{ENV['HOME']}/.pow/#{request.host.gsub(/.dev$/, '')}" ]).map { |link| File.basename(link) }
+      @pows = (Dir[POW_PATH + "/*"] - [ "#{ENV['HOME']}/.pow/#{request.host.gsub(/.dev$/, '')}" ]).map { |link| File.basename(link)}
       haml :linktable
     end
   end
@@ -34,43 +40,48 @@ __END__
 %html
   %head
     %title pow index
-    %link{:rel => 'stylesheet', :href => 'bootstrap.min.css'}
-    %link{:rel => 'stylesheet', :href => 'bootstrap-responsive.min.css'}
+    %link{:rel => 'stylesheet', :href => 'styles.css'}
+
     %script{:type => 'text/javascript', :src => 'jquery.min.js'}
     %script{:type => 'text/javascript', :src => 'bootstrap-modal.js'}
     = haml :js
-  %body{:style => 'padding-top:40px'}
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          .brand pow index
-          .nav.pull-right
-            %a.btn{:'data-toggle' => "modal", :href => '#toggle'}
-              %i.icon-refresh
+  %body
     .container
-      %table.table.table-striped#linktable
+      #linktable
 
       .modal.hide#toggle
         .modal-header
           %h3 Cleanup
         .modal-body
-          %p= "Remove invalid symbolic links in ~/.pow"
+          %p= "Remove invalid symbolic links in ~/.pow and regenerate snapshots"
         .modal-footer
           %a.btn.btn-primary{:onClick => 'cleanup()'} OK
           %a.btn{:'data-dismiss' => 'modal'} cancel
 
+    #footer
+      .container
+        %img{:src => "img/logo-pow.png"}
+        .nav.pull-right
+          %a.btn{:'data-toggle' => "modal", :href => '#toggle', :alt => "Refresh links"}
+            %i.icon-refresh
+
 @@ linktable
-%tbody
+%ul#pows
   - @pows.each do |pow|
-    %tr
-      %td
-        %a{:href => "http://#{pow}.dev", :target => "_blank"}
+    - unless pow.eql?("default")
+      %li.pow
+        %a{:href => "http://#{pow}.dev"} 
+          %img{:src => "snaps/#{pow}-clipped.png"}
+        %a.title{:href => "http://#{pow}.dev"}
           = pow
 
 @@ js
 :javascript
   function loadtable(){
-    $('#linktable').load('/linktable')
+    $('#linktable').load('/linktable', function() {
+      tableCenter();
+    });
+    
   }
   function cleanup() {
     $.ajax({
@@ -79,8 +90,22 @@ __END__
       dataType: "html",
       success: function(){
         loadtable();
-        $('#toggle').modal('hide')
+        $('#toggle').modal('hide');
       }
     })
   }
-  $(function(){ loadtable(); })
+  function tableCenter() {
+    windowH = $(window).height();
+    tableH = $('#linktable').height();
+    footerH = $('#footer').height();
+    topPos = ((windowH - tableH) / 2) - footerH
+    $('#linktable').css('top', topPos)
+  }
+  $(document).ready(function(){ 
+    loadtable();
+    
+    $(window).resize(function() {
+      tableCenter();
+    });
+    
+  });

@@ -608,3 +608,47 @@ a.thumbnail:hover{border-color:#0088cc;-webkit-box-shadow:0 1px 4px rgba(0, 105,
 .hide{display:none;}
 .show{display:block;}
 .invisible{visibility:hidden;}
+
+.container{
+  position: relative;
+}
+#linktable{
+  position:absolute;
+}
+#pows{
+  list-style:outside none;
+  margin:0;
+}
+.pow{
+  float:left;
+  display:inline;
+  margin:0 15px 30px;
+  text-align:center;
+}
+.pow img{
+  display:block;
+  border:1px solid #D2D2CA;
+  webkit-border-radius:3px;
+     moz-border-radius:3px;
+         border-radius:3px;
+}
+.pow .title{
+  color:#666;
+  display: inline-block;
+  padding:5px 10px;
+}
+
+#footer{
+  width:100%;
+  position: absolute;
+  bottom:0;
+  background-color:#E0E0D8;
+  border-top:2px solid #D2D2CA;
+  padding:10px 0;
+}
+#footer .container > *{
+  padding:0 20px;
+}
+#footer .nav{
+  margin:6 0;
+}
