@@ -78,11 +78,9 @@ __END__
 @@ js
 :javascript
   function loadtable(){
-    $('#linktable').load('/linktable', function() {
-      tableCenter();
-    });
-    
+    $('#linktable').load('/linktable');
   }
+
   function cleanup() {
     $.ajax({
       type: "GET",
@@ -92,20 +90,9 @@ __END__
         loadtable();
         $('#toggle').modal('hide');
       }
-    })
-  }
-  function tableCenter() {
-    windowH = $(window).height();
-    tableH = $('#linktable').height();
-    footerH = $('#footer').height();
-    topPos = ((windowH - tableH) / 2) - footerH
-    $('#linktable').css('top', topPos)
-  }
-  $(document).ready(function(){ 
-    loadtable();
-    
-    $(window).resize(function() {
-      tableCenter();
     });
-    
+  }
+  
+  $(document).ready(function(){ 
+    loadtable();  
   });

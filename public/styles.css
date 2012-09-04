@@ -610,10 +610,13 @@ a.thumbnail:hover{border-color:#0088cc;-webkit-box-shadow:0 1px 4px rgba(0, 105,
 .invisible{visibility:hidden;}
 
 .container{
-  position: relative;
+  display:table;
+  height: 100%;
+  vertical-align:middle;
 }
 #linktable{
-  position:absolute;
+  display:table-cell;
+  vertical-align: middle;
 }
 #pows{
   list-style:outside none;
