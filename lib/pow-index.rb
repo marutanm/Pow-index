@@ -100,6 +100,16 @@ __END__
       success: function(){
         loadtable();
         $('#toggle').modal('hide');
+      },
+      statusCode: {
+        500: function() {
+          $('#toggle').modal('hide');
+          alert("Sorry, there is some problem");
+        }
+      }
+    });
+  }
+  
   function regenerateImage(pow) {
     $.ajax({
       type: "GET",
