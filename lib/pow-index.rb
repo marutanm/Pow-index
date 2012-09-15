@@ -6,10 +6,15 @@ module PowIndex
   class App < Sinatra::Base
 
     POW_PATH = "#{ENV['HOME']}/.pow"
+    IMAGE_PATH = "#{File.expand_path(File.dirname(__FILE__)).chomp}/../public/snaps/"
     enable :inline_templates
 
+    def image_generation(link)
+      system "webkit2png -D #{IMAGE_PATH} -o #{link} -C http://#{link}.dev" unless link.eql?("default")
+    end
+
     get '/' do
-      @pows = (Dir[POW_PATH + "/*"] - [ "#{ENV['HOME']}/.pow/#{request.host.gsub(/.dev$/, '')}" ]).map { |link| File.basename(link)}
+      @pows = (Dir["#{POW_PATH}/*"] - [ "#{POW_PATH}/#{request.host.gsub(/.dev$/, '')}" ]).map { |link| File.basename(link)}
       haml :index
     end
 
@@ -18,17 +23,20 @@ module PowIndex
       Dir[POW_PATH + "/*"].map { |symlink| FileUtils.rm(symlink) unless File.exists? File.readlink(symlink) }
       @pows = Dir[POW_PATH + "/*"].map { |link| File.basename(link)}
       ## Snapshots generation
-      path = "#{File.expand_path(File.dirname(__FILE__)).chomp}/../public/snaps/"
       @snaps = Dir[POW_PATH + "/*"].map { |symlink|
         link = symlink.rpartition("/").last
-        system "webkit2png -D #{path} -o #{link} -C http://#{link}.dev" unless link.eql?("default")
+        image_generation(link)
       }
       haml :linktable
     end
 
     get '/linktable' do
-      @pows = (Dir[POW_PATH + "/*"] - [ "#{ENV['HOME']}/.pow/#{request.host.gsub(/.dev$/, '')}" ]).map { |link| File.basename(link)}
+      @pows = (Dir["#{POW_PATH}/*"] - [ "#{POW_PATH}/#{request.host.gsub(/.dev$/, '')}" ]).map { |link| File.basename(link)}
       haml :linktable
+    end
+
+    get '/regenerate/:link' do
+      image_generation(params[:link])
     end
   end
 
@@ -74,15 +82,16 @@ __END__
           %img{:src => "snaps/#{pow}-clipped.png"}
         %a.title{:href => "http://#{pow}.dev"}
           = pow
+        .action
+          %a.reload.btn{:href => '#', :onClick => "regenerateImage('#{pow}')", :alt => 'Regenerate Image'}
+            %i.icon-refresh
 
 @@ js
 :javascript
   function loadtable(){
-    $('#linktable').load('/linktable', function() {
-      tableCenter();
-    });
-    
+    $('#linktable').load('/linktable');
   }
+
   function cleanup() {
     $.ajax({
       type: "GET",
@@ -91,21 +100,27 @@ __END__
       success: function(){
         loadtable();
         $('#toggle').modal('hide');
+      },
+      statusCode: {
+        500: function() {
+          $('#toggle').modal('hide');
+          alert("Sorry, there is some problem");
+        }
       }
-    })
-  }
-  function tableCenter() {
-    windowH = $(window).height();
-    tableH = $('#linktable').height();
-    footerH = $('#footer').height();
-    topPos = ((windowH - tableH) / 2) - footerH
-    $('#linktable').css('top', topPos)
-  }
-  $(document).ready(function(){ 
-    loadtable();
-    
-    $(window).resize(function() {
-      tableCenter();
     });
-    
+  }
+  
+  function regenerateImage(pow) {
+    $.ajax({
+      type: "GET",
+      url: "/regenerate/" + pow,
+      dataType: "html",
+      success: function(){
+        location.reload(true);
+      }
+    });
+  }
+  
+  $(document).ready(function(){ 
+    loadtable();  
   });
