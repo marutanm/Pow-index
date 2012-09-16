@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pow-index (0.0.6)
+    pow-index (0.0.7)
       haml (>= 3.1.0)
       sinatra (>= 1.2.0)
 
