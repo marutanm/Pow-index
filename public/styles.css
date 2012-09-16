@@ -610,10 +610,13 @@ a.thumbnail:hover{border-color:#0088cc;-webkit-box-shadow:0 1px 4px rgba(0, 105,
 .invisible{visibility:hidden;}
 
 .container{
-  position: relative;
+  display:table;
+  height: 100%;
+  vertical-align:middle;
 }
 #linktable{
-  position:absolute;
+  display:table-cell;
+  vertical-align: middle;
 }
 #pows{
   list-style:outside none;
@@ -624,8 +627,11 @@ a.thumbnail:hover{border-color:#0088cc;-webkit-box-shadow:0 1px 4px rgba(0, 105,
   display:inline;
   margin:0 15px 30px;
   text-align:center;
+  position:relative;
 }
 .pow img{
+  width: 200px;
+  height: 150px;
   display:block;
   border:1px solid #D2D2CA;
   webkit-border-radius:3px;
@@ -637,7 +643,15 @@ a.thumbnail:hover{border-color:#0088cc;-webkit-box-shadow:0 1px 4px rgba(0, 105,
   display: inline-block;
   padding:5px 10px;
 }
-
+.pow .action{
+  display:none;
+  position: absolute;
+  top:5;
+  right:5;
+}
+.pow:hover .action{
+  display:block;
+}
 #footer{
   width:100%;
   position: absolute;
